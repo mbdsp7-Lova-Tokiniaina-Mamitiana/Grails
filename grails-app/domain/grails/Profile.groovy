@@ -8,6 +8,6 @@ class Profile {
     double solde
     static constraints = {
         iduser blank: false, unique: true
-        solde min: 0
+        solde min: 0d
     }
 }

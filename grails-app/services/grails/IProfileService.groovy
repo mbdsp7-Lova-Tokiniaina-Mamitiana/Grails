@@ -3,7 +3,7 @@ package grails
 import grails.gorm.services.Service
 
 @Service(Profile)
-interface ProfileService {
+interface IProfileService {
 
     Profile get(Serializable id)
 

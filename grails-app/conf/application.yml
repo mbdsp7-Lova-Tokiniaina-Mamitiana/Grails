@@ -107,7 +107,7 @@ dataSource:
 environments:
     development:
         dataSource:
-            dbCreate: create-drop
+            dbCreate: update
             url: jdbc:oracle:thin:@//144.21.67.201:1521/pdbitu.631174089.oraclecloud.internal
             driverClassName: oracle.jdbc.OracleDriver
             dialect: org.hibernate.dialect.Oracle10gDialect
@@ -115,7 +115,7 @@ environments:
             password: "AndrianarisonMI202101"
     test:
         dataSource:
-            dbCreate: create-drop
+            dbCreate: update
             url: jdbc:oracle:thin:@//144.21.67.201:1521/pdbitu.631174089.oraclecloud.internal
             driverClassName: oracle.jdbc.OracleDriver
             dialect: org.hibernate.dialect.Oracle10gDialect
@@ -123,7 +123,7 @@ environments:
             password: "AndrianarisonMI202101"
     production:
         dataSource:
-            dbCreate: create-drop
+            dbCreate: update
             url: jdbc:oracle:thin:@//144.21.67.201:1521/pdbitu.631174089.oraclecloud.internal
             driverClassName: oracle.jdbc.OracleDriver
             dialect: org.hibernate.dialect.Oracle10gDialect

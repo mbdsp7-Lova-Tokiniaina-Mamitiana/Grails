@@ -8,6 +8,7 @@ class HistoriquePersonnel {
     String idPari
     String idMatch
     double montant
+    double  cote
     String nomEquipe1
     String nomEquipe2
     String avatarEquipe1
@@ -21,7 +22,8 @@ class HistoriquePersonnel {
         idPari blank: false
         idMatch blank: false
         montant blank: false
-       
+        cote blank:false
+
 
     }
 }

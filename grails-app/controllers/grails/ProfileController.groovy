@@ -5,7 +5,7 @@ import static org.springframework.http.HttpStatus.*
 
 class ProfileController {
 
-    ProfileService profileService
+    IProfileService profileService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 

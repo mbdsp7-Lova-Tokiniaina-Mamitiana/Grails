@@ -5,7 +5,7 @@ import static org.springframework.http.HttpStatus.*
 
 class HistoriquePersonnelController {
 
-    HistoriquePersonnelService historiquePersonnelService
+    IHistoriquePersonnelService historiquePersonnelService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
