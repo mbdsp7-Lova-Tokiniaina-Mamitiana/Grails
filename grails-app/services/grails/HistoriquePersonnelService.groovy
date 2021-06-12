@@ -31,7 +31,7 @@ class HistoriquePersonnelService implements IHistoriquePersonnelService{
 
     @Override
     HistoriquePersonnel save(HistoriquePersonnel historiquePersonnel) {
-        return null
+        return historiquePersonnel.save()
     }
     List<HistoriquePersonnel> listPerso(Map args,String idUser) {
         return HistoriquePersonnel.findAllByIdUser(idUser,args)

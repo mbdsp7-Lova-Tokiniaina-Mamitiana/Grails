@@ -4,28 +4,32 @@ import grails.converters.JSON
 import grails.converters.XML
 
 import javax.servlet.http.HttpServletResponse
+import java.sql.Timestamp
 
 class ApiController {
     ProfilService profilService
-    HistoriquePersonnelService histoService
+    HistoriquePersonnelService historiquePersonnelService
     def profil() {
         switch (request.getMethod()) {
             case "GET":
+                //GET PROFIL PAR IDUSER = params.id
                 if (!params.id)
                     return response.status = HttpServletResponse.SC_BAD_REQUEST
-                def profilInstance = profilService.get(params.id)
+                def profilInstance = profilService.get(""+params.id)
                 if (!profilInstance)
                     return response.status = HttpServletResponse.SC_NOT_FOUND
 
                 serializeData(profilInstance, request.getHeader("Accept"))
                 break
             case "POST":
+                //AJOUT DE SOLDE params IDUSER=params.id et montant = params.montant
                 if (!params.id)
                     return response.status = HttpServletResponse.SC_BAD_REQUEST
-                def profilInstance = profilService.get(params.id)
+                def profilInstance = profilService.get(""+params.id)
                 if (!profilInstance)
                     return response.status = HttpServletResponse.SC_NOT_FOUND
-                profilService.addSolde(params.id,Double.parseDouble(params.montant))
+                profilService.addSolde(params.id,Double.parseDouble(""+params.montant))
+                return response.status = HttpServletResponse.SC_OK
                 break
             default:
                 return response.status = HttpServletResponse.SC_METHOD_NOT_ALLOWED
@@ -38,6 +42,7 @@ class ApiController {
         switch (request.getMethod()) {
 
             case "POST":
+                //CREATION Profil "Id user = params.id"
                 def profil = new Profile();
                 profil.setIduser(""+params.id);
                 profil.setSolde(0);
@@ -57,9 +62,32 @@ class ApiController {
 
         switch (request.getMethod()) {
             case "GET":
-
-                def historiques = histoService.listPerso(params,params.id)
+                //Omeo Id User params{id}
+                def historiques = historiquePersonnelService.listPerso(params,""+params.id)
                 serializeData(historiques, request.getHeader("Accept"))
+                break
+            case "POST":
+                //CREATION Historique personnel : dates en Long
+                HistoriquePersonnel historiquePersonnel=new HistoriquePersonnel();
+                historiquePersonnel.setIdMatch(""+params.idmatch)
+                historiquePersonnel.setIdPari(""+params.idpari)
+                historiquePersonnel.setIdUser(""+params.iduser)
+                historiquePersonnel.setCote(Double.parseDouble(""+params.cote))
+                historiquePersonnel.setNomEquipe1(""+params.equipe1)
+                historiquePersonnel.setNomEquipe2(""+params.equipe2)
+                historiquePersonnel.setTextePari(""+params.textpari)
+                historiquePersonnel.setMontant(Double.parseDouble(params.montant))
+                historiquePersonnel.setLocalisationx(Double.parseDouble(params.localisationx))
+                historiquePersonnel.setLocalisationy(Double.parseDouble(params.localisationy))
+                historiquePersonnel.setDateMatch(new Timestamp(Long.parseLong(params.date)))
+                historiquePersonnel.setAvatarEquipe1(params.avatar1)
+                historiquePersonnel.setAvatarEquipe2(params.avatar2)
+                historiquePersonnel.setDateHisto(new Timestamp(Long.parseLong(params.dateHisto)))
+                historiquePersonnelService.save(historiquePersonnel)
+
+
+
+                return response.status = HttpServletResponse.SC_OK
                 break
             default:
                 return response.status = HttpServletResponse.SC_METHOD_NOT_ALLOWED
@@ -70,9 +98,9 @@ class ApiController {
     def distribution(){
         switch (request.getMethod()) {
             case "POST":
-
-
-                serializeData(params.id, request.getHeader("Accept"))
+                //Distribution des gains d'un pari = params.id =idpari
+                historiquePersonnelService.distrution(""+params.id)
+                return response.status = HttpServletResponse.SC_OK
                 break
             default:
                 return response.status = HttpServletResponse.SC_METHOD_NOT_ALLOWED
@@ -95,6 +123,9 @@ class ApiController {
             case 'application/xml':
             case 'text/xml':
                 render object as XML
+                break
+            default:
+                render object as JSON
                 break
         }
     }

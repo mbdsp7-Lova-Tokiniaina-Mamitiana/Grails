@@ -17,6 +17,7 @@ class HistoriquePersonnel {
     double localisationx
     double localisationy
     Timestamp dateMatch
+    Timestamp dateHisto
     static constraints = {
         idUser blank: false
         idPari blank: false
