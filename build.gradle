@@ -55,7 +55,7 @@ dependencies {
     compile "org.hibernate:hibernate-core:5.4.18.Final"
     compile "org.grails.plugins:gsp"
     implementation 'com.oracle.database.jdbc:ojdbc10:19.10.0.0'
-    //compile 'com.github.jsimone:webapp-runner:8.5.11.3'
+    compile 'com.github.jsimone:webapp-runner:8.5.11.3'
 
     compileOnly "io.micronaut:micronaut-inject-groovy"
     console "org.grails:grails-console"
@@ -102,7 +102,7 @@ war.mustRunAfter clean
 task copyToLib(type: Copy) {
     into "$buildDir/server"
     from(configurations.compile) {
-  //      include "webapp-runner*"
+      include "webapp-runner*"
     }
 }
 stage.dependsOn(copyToLib)
