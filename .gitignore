@@ -1,7 +1,6 @@
 Thumbs.db
 .DS_Store
 .gradle
-build/
 out/
 .idea
 *.iml
@@ -12,5 +11,4 @@ out/
 .classpath
 
 src/
-build/
 grails-app/conf/application.yml
