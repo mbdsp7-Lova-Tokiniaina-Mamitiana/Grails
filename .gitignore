@@ -9,6 +9,7 @@ out/
 .project
 .settings
 .classpath
+build/
 
 src/
 grails-app/conf/application.yml
