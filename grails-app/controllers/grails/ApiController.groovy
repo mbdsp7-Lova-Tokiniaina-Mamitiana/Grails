@@ -62,7 +62,7 @@ class ApiController {
 
         switch (request.getMethod()) {
             case "GET":
-                //Omeo Id User params{id}
+                //Omeo Id User params{id} sy params.status
                 def historiques = historiquePersonnelService.listPerso(params,""+params.id)
                 serializeData(historiques, request.getHeader("Accept"))
                 break
@@ -83,6 +83,7 @@ class ApiController {
                 historiquePersonnel.setAvatarEquipe1(params.avatar1)
                 historiquePersonnel.setAvatarEquipe2(params.avatar2)
                 historiquePersonnel.setDateHisto(new Timestamp(Long.parseLong(params.dateHisto)))
+                historiquePersonnel.setStatut(0)
                 historiquePersonnelService.save(historiquePersonnel)
 
 
@@ -100,6 +101,20 @@ class ApiController {
             case "POST":
                 //Distribution des gains d'un pari = params.id =idpari
                 historiquePersonnelService.distrution(""+params.id)
+                return response.status = HttpServletResponse.SC_OK
+                break
+            default:
+                return response.status = HttpServletResponse.SC_METHOD_NOT_ALLOWED
+                break
+        }
+        return response.status = HttpServletResponse.SC_NOT_ACCEPTABLE
+
+    }
+    def terminermatch(){
+        switch (request.getMethod()) {
+            case "POST":
+                //Distribution des gains d'un pari = params.id =imatch
+                historiquePersonnelService.terminerMatch(""+params.id)
                 return response.status = HttpServletResponse.SC_OK
                 break
             default:

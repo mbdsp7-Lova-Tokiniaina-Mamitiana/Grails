@@ -34,7 +34,9 @@ class HistoriquePersonnelService implements IHistoriquePersonnelService{
         return historiquePersonnel.save()
     }
     List<HistoriquePersonnel> listPerso(Map args,String idUser) {
-        return HistoriquePersonnel.findAllByIdUser(idUser,args)
+        args.order = "desc"
+        args.sort = "dateHisto"
+        return HistoriquePersonnel.findAllByIdUserAndStatut(idUser,args.statut,args)
     }
     List<HistoriquePersonnel> listParPari(Map args,String idPari) {
         return HistoriquePersonnel.findAllByIdPari(idPari,args)
@@ -54,6 +56,9 @@ class HistoriquePersonnelService implements IHistoriquePersonnelService{
         }
         return true
 
+    }
+    boolean terminerMatch(String idMatch){
+        HistoriquePersonnel.executeUpdate("update HistoriquePersonnel set statut = 1 where idMatch = '"+idMatch+"' ")
     }
 
 }

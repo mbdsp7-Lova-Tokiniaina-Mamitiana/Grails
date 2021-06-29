@@ -113,6 +113,7 @@ environments:
             dialect: org.hibernate.dialect.Oracle10gDialect
             username: "ANDRIANARISONMI2021"
             password: "AndrianarisonMI202101"
+            logSql : true
     test:
         dataSource:
             dbCreate: update
@@ -121,6 +122,7 @@ environments:
             dialect: org.hibernate.dialect.Oracle10gDialect
             username: "ANDRIANARISONMI2021"
             password: "AndrianarisonMI202101"
+            logSql : true
     production:
         dataSource:
             dbCreate: update
@@ -129,6 +131,7 @@ environments:
             dialect: org.hibernate.dialect.Oracle10gDialect
             username: "ANDRIANARISONMI2021"
             password: "AndrianarisonMI202101"
+            logSql : false
             properties:
                 jmxEnabled: true
                 initialSize: 5
