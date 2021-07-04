@@ -38,6 +38,9 @@ class HistoriquePersonnelService implements IHistoriquePersonnelService{
         args.sort = "dateHisto"
         return HistoriquePersonnel.findAllByIdUserAndStatut(idUser,args.statut,args)
     }
+    int countListPerso(Map args,String idUser){
+        return HistoriquePersonnel.countByIdUserAndStatut(idUser,args.statut)
+    }
     List<HistoriquePersonnel> listParPari(Map args,String idPari) {
         return HistoriquePersonnel.findAllByIdPari(idPari,args)
     }

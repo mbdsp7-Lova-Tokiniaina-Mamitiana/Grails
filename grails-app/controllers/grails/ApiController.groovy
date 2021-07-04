@@ -9,6 +9,7 @@ import java.sql.Timestamp
 class ApiController {
     ProfilService profilService
     HistoriquePersonnelService historiquePersonnelService
+
     def profil() {
         switch (request.getMethod()) {
             case "GET":
@@ -64,6 +65,7 @@ class ApiController {
             case "GET":
                 //Omeo Id User params{id} sy params.status
                 def historiques = historiquePersonnelService.listPerso(params,""+params.id)
+
                 serializeData(historiques, request.getHeader("Accept"))
                 break
             case "POST":
@@ -90,6 +92,22 @@ class ApiController {
 
                 return response.status = HttpServletResponse.SC_OK
                 break
+            default:
+                return response.status = HttpServletResponse.SC_METHOD_NOT_ALLOWED
+                break
+        }
+        return response.status = HttpServletResponse.SC_NOT_ACCEPTABLE
+    }
+    def counthistoriquepersonnels(){
+
+        switch (request.getMethod()) {
+            case "GET":
+                //Omeo Id User params{id} sy params.status
+                def count = historiquePersonnelService.countListPerso(params,""+params.id)
+
+                return count
+                break
+
             default:
                 return response.status = HttpServletResponse.SC_METHOD_NOT_ALLOWED
                 break
