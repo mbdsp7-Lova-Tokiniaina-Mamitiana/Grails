@@ -29,6 +29,9 @@ class ApiController {
                 def profilInstance = profilService.get(""+params.id)
                 if (!profilInstance)
                     return response.status = HttpServletResponse.SC_NOT_FOUND
+                if(Double.parseDouble(""+params.montant)<0){
+                    response.sendError(403,"Le montant doit etre positif");
+                }
                 profilService.addSolde(params.id,Double.parseDouble(""+params.montant))
                 return response.status = HttpServletResponse.SC_OK
                 break
@@ -86,6 +89,15 @@ class ApiController {
                 historiquePersonnel.setAvatarEquipe2(params.avatar2)
                 historiquePersonnel.setDateHisto(new Timestamp(Long.parseLong(params.dateHisto)))
                 historiquePersonnel.setStatut(0)
+                Profile profile = profilService.get(params.iduser);
+                if(profile!=null){
+                    if(profile.getSolde()<historiquePersonnel.getMontant()){
+                        response.sendError(403,"Solde insuffisant");
+                    }else{
+                        profilService.addSolde(params.iduser,-historiquePersonnel.getMontant())
+                    }
+
+                }
                 historiquePersonnelService.save(historiquePersonnel)
 
 
