@@ -19,6 +19,7 @@ class HistoriquePersonnel {
     Timestamp dateMatch
     Timestamp dateHisto
     int statut
+    int gain
     static constraints = {
         idUser blank: false
         idPari blank: false

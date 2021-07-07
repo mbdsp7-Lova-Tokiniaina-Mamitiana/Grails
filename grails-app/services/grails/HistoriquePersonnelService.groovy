@@ -54,10 +54,16 @@ class HistoriquePersonnelService implements IHistoriquePersonnelService{
                 offset: 0
         ]
         List<HistoriquePersonnel> list = listParPari(p,idPari)
+
         for (HistoriquePersonnel h:list){
             profilService.addSolde(h.getIdUser(),h.getCote()*h.getMontant())
         }
+        setGain(idPari)
         return true
+
+    }
+    boolean setGain(String idPari){
+        HistoriquePersonnel.executeUpdate("update HistoriquePersonnel set gain = 1 where idPari = '"+idPari+"' ")
 
     }
     boolean terminerMatch(String idMatch){

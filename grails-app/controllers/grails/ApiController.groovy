@@ -89,16 +89,18 @@ class ApiController {
                 historiquePersonnel.setAvatarEquipe2(params.avatar2)
                 historiquePersonnel.setDateHisto(new Timestamp(Long.parseLong(params.dateHisto)))
                 historiquePersonnel.setStatut(0)
+                historiquePersonnel.setGain(0)
                 Profile profile = profilService.get(params.iduser);
                 if(profile!=null){
                     if(profile.getSolde()<historiquePersonnel.getMontant()){
                         response.sendError(403,"Solde insuffisant");
                     }else{
                         profilService.addSolde(params.iduser,-historiquePersonnel.getMontant())
+                        historiquePersonnelService.save(historiquePersonnel)
                     }
 
                 }
-                historiquePersonnelService.save(historiquePersonnel)
+
 
 
 
