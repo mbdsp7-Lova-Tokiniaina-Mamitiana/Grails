@@ -118,8 +118,11 @@ class ApiController {
             case "GET":
                 //Omeo Id User params{id} sy params.status
                 def count = historiquePersonnelService.countListPerso(params,""+params.id)
+                String result = "{count:"+count+"}"
+                HashMap jsonMap = new HashMap()
+                jsonMap.put("count",count)
+                serializeData(jsonMap, request.getHeader("Accept"))
 
-                return count
                 break
 
             default:
