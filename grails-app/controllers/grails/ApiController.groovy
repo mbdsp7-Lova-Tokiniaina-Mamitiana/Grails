@@ -5,6 +5,7 @@ import grails.converters.XML
 
 import javax.servlet.http.HttpServletResponse
 import java.sql.Timestamp
+import java.text.SimpleDateFormat
 
 class ApiController {
     ProfilService profilService
@@ -73,6 +74,7 @@ class ApiController {
                 break
             case "POST":
                 //CREATION Historique personnel : dates en Long
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm")
                 HistoriquePersonnel historiquePersonnel=new HistoriquePersonnel();
                 historiquePersonnel.setIdMatch(""+params.idmatch)
                 historiquePersonnel.setIdPari(""+params.idpari)
@@ -84,10 +86,12 @@ class ApiController {
                 historiquePersonnel.setMontant(Double.parseDouble(params.montant))
                 historiquePersonnel.setLocalisationx(Double.parseDouble(params.localisationx))
                 historiquePersonnel.setLocalisationy(Double.parseDouble(params.localisationy))
-                historiquePersonnel.setDateMatch(new Timestamp(Long.parseLong(params.date)))
+                Date d1=format.parse(params.date)
+                Date d2=format.parse(params.dateHisto)
+                historiquePersonnel.setDateMatch(new Timestamp(d1.getTime()))
                 historiquePersonnel.setAvatarEquipe1(params.avatar1)
                 historiquePersonnel.setAvatarEquipe2(params.avatar2)
-                historiquePersonnel.setDateHisto(new Timestamp(Long.parseLong(params.dateHisto)))
+                historiquePersonnel.setDateHisto(new Timestamp(d2.getTime()))
                 historiquePersonnel.setStatut(0)
                 historiquePersonnel.setGain(0)
                 Profile profile = profilService.get(params.iduser);
