@@ -139,7 +139,13 @@ class ApiController {
         switch (request.getMethod()) {
             case "POST":
                 //Distribution des gains d'un pari = params.id =idpari
-                historiquePersonnelService.distrution(""+params.id)
+                def jsonObject = request.JSON;
+                String idpari = jsonObject.id;
+                if(idpari == null){
+                    idpari = params.id;
+                }
+
+                historiquePersonnelService.distrution(idpari)
                 return response.status = HttpServletResponse.SC_OK
                 break
             default:
@@ -153,7 +159,12 @@ class ApiController {
         switch (request.getMethod()) {
             case "POST":
                 //Distribution des gains d'un pari = params.id =imatch
-                historiquePersonnelService.terminerMatch(""+params.id)
+                def jsonObject = request.JSON;
+                String idmatch = jsonObject.id;
+                if(idmatch == null){
+                    idmatch = params.id;
+                }
+                historiquePersonnelService.terminerMatch(idmatch)
                 return response.status = HttpServletResponse.SC_OK
                 break
             default:
